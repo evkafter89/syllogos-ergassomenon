@@ -277,7 +277,7 @@ function renderFolders() {
 function openFolder(i) {
   const folder = FOLDERS[i];
   viewFolders.style.display = 'none';
-  viewDocs.style.display = '';
+  viewDocs.style.display = 'block';
   folderTitle.textContent = folder.name;
   bcFolder.textContent = folder.name;
   bcSep.style.display = '';
