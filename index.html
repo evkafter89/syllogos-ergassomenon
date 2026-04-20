@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Σύλλογος Εργαζομένων — Έγγραφα</title>
+  <title>Σύλλογος Εργαζομένων — Αρχειοθέτηση</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,7 +16,7 @@
       --muted:  #7a7060;
       --border: #d0c8b8;
     }
-    body { font-family: 'Source Serif 4', Georgia, serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
+    body { font-family: 'Source Serif 4', Georgia, serif; background: var(--paper); color: var(--ink); min-height: 100vh; position: relative; }
     body::before {
       content: ''; position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
@@ -35,96 +35,42 @@
       letter-spacing: 0.02em; line-height: 1.15;
     }
     header h1 span { color: var(--gold); }
-    header p.subtitle { margin-top: 0.7rem; font-size: 0.9rem; font-weight: 300; font-style: italic; color: #c8c0b0; letter-spacing: 0.05em; }
+    header p.subtitle { margin-top: 0.7rem; font-size: 0.9rem; font-weight: 300; font-style: italic; color: #c8c0b0; }
 
-    /* breadcrumb */
-    #breadcrumb {
-      position: relative; z-index: 1;
-      background: var(--cream); border-bottom: 1px solid var(--border);
-      padding: 0.6rem 1.5rem; font-size: 0.82rem; color: var(--muted);
-      display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
-      min-height: 2.4rem;
-    }
-    #breadcrumb button {
-      background: none; border: none; cursor: pointer;
-      color: var(--rust); font-size: 0.82rem; font-family: inherit; padding: 0;
-      text-decoration: underline;
-    }
-    #breadcrumb button:hover { color: var(--gold); }
-
-    main { position: relative; z-index: 1; max-width: 860px; margin: 2.5rem auto; padding: 0 1.5rem 4rem; }
+    main { position: relative; z-index: 1; max-width: 1000px; margin: 2.5rem auto; padding: 0 1.5rem 4rem; }
 
     .section-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.6rem; }
-    .section-label h2 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; white-space: nowrap; }
+    .section-label h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
     .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-    /* folder grid */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
     }
     .folder-card {
-      background: white; border: 1px solid var(--border); border-top: 3px solid var(--rust);
-      border-radius: 4px; padding: 1.2rem 1rem 1rem;
-      cursor: pointer; display: flex; flex-direction: column; align-items: flex-start; gap: 0.55rem;
-      transition: box-shadow 0.2s, border-top-color 0.2s, transform 0.15s;
-      animation: fadeUp 0.35s ease both;
+      background: white; border: 1px solid var(--border); border-top: 4px solid var(--rust);
+      border-radius: 4px; padding: 1.5rem;
+      cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.8rem;
+      transition: all 0.25s ease;
+      animation: fadeUp 0.4s ease both;
     }
-    .folder-card:hover { box-shadow: 0 6px 22px rgba(0,0,0,0.12); border-top-color: var(--gold); transform: translateY(-3px); }
-    .folder-card .f-icon { font-size: 1.9rem; line-height: 1; }
-    .folder-card .f-name { font-size: 0.88rem; font-weight: 600; line-height: 1.3; }
-    .folder-card .f-count { font-size: 0.73rem; color: var(--muted); font-style: italic; }
-
-    /* doc list */
-    #view-docs { display: none; }
-    .doc-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-    .doc-item {
-      background: white; border: 1px solid var(--border); border-left: 4px solid var(--rust);
-      border-radius: 3px; display: flex; align-items: center; padding: 0.85rem 1.1rem; gap: 1rem;
-      text-decoration: none; color: var(--ink);
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-      animation: fadeUp 0.35s ease both;
+    .folder-card:hover { 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+      border-top-color: var(--gold); 
+      transform: translateY(-5px); 
     }
-    .doc-item:hover { border-left-color: var(--gold); box-shadow: 0 4px 18px rgba(0,0,0,0.10); transform: translateX(3px); }
-    .doc-icon {
-      flex-shrink: 0; width: 38px; height: 46px;
-      background: var(--cream); border: 1px solid var(--border); border-radius: 3px;
-      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
-      position: relative;
-    }
-    .doc-icon::after {
-      content: ''; position: absolute; top: 0; right: 0; width: 11px; height: 11px;
-      background: var(--paper); border-bottom: 1px solid var(--border); border-left: 1px solid var(--border);
-      clip-path: polygon(100% 0, 100% 100%, 0 100%);
-    }
-    .doc-info { flex: 1; min-width: 0; }
-    .doc-name { font-size: 0.95rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .doc-meta { margin-top: 0.15rem; font-size: 0.75rem; color: var(--muted); font-style: italic; }
-    .doc-arrow { flex-shrink: 0; color: var(--muted); font-size: 1rem; transition: color 0.2s; }
-    .doc-item:hover .doc-arrow { color: var(--rust); }
-
-    .back-btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: none; border: 1px solid var(--border); border-radius: 3px;
-      padding: 0.5rem 1rem; font-family: inherit; font-size: 0.85rem;
-      color: var(--ink); cursor: pointer; margin-bottom: 1.5rem;
-      transition: background 0.2s;
-    }
-    .back-btn:hover { background: var(--cream); }
-
-    .empty {
-      text-align: center; padding: 3rem 1rem;
-      background: white; border: 1px dashed var(--border); border-radius: 4px;
-      color: var(--muted); font-style: italic; font-size: 0.9rem;
-    }
+    .f-icon { font-size: 2.5rem; }
+    .f-name { font-size: 1rem; font-weight: 600; line-height: 1.3; min-height: 2.6em; display: flex; align-items: center; }
+    .f-action { font-size: 0.75rem; color: var(--rust); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid var(--border); padding: 4px 10px; border-radius: 3px; }
+    .folder-card:hover .f-action { background: var(--rust); color: white; border-color: var(--rust); }
 
     footer {
       position: relative; z-index: 1; border-top: 1px solid var(--border);
-      text-align: center; padding: 1.4rem; font-size: 0.76rem; color: var(--muted); font-style: italic;
+      text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--muted);
     }
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
@@ -132,179 +78,59 @@
 <header>
   <div class="masthead-rule"></div>
   <h1>Σύλλογος <span>Εργαζομένων</span></h1>
-  <p class="subtitle">Ανακοινώσεις &amp; Έγγραφα Συλλόγου</p>
+  <p class="subtitle">Ψηφιακό Αρχείο Εγγράφων</p>
 </header>
 
-<div id="breadcrumb">
-  <button onclick="showFolders()">🏠 Αρχική</button>
-  <span id="bc-sep" style="display:none">›</span>
-  <span id="bc-folder"></span>
-</div>
-
 <main>
-  <div id="view-folders">
-    <div class="section-label"><h2>Κατηγορίες Εγγράφων</h2></div>
-    <div class="grid" id="folderGrid"></div>
-  </div>
-
-  <div id="view-docs">
-    <button class="back-btn" onclick="showFolders()">← Πίσω στις κατηγορίες</button>
-    <div class="section-label"><h2 id="folder-title"></h2></div>
-    <ul class="doc-list" id="docList"></ul>
-  </div>
+  <div class="section-label"><h2>Κατηγορίες Αρχείων</h2></div>
+  <div class="grid" id="folderGrid"></div>
 </main>
 
 <footer>
-  &copy; <span id="yr"></span> Σύλλογος Εργαζομένων · Όλα τα δικαιώματα διατηρούνται
+  &copy; <span id="yr"></span> Σύλλογος Εργαζομένων · Η διαχείριση αρχείων γίνεται μέσω Google Drive
 </footer>
 
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   ΔΕΔΟΜΕΝΑ — ΕΔΩ ΔΙΑΧΕΙΡΙΖΕΣΑΙ ΤΑ ΕΓΓΡΑΦΑ
-   ═══════════════════════════════════════════════════════════════
-   Για να προσθέσεις αρχείο σε φάκελο:
-     1. Ανέβασε το αρχείο στον φάκελο  eggrafa/  στο GitHub
-     2. Αντέγραψε μια γραμμή { name:..., file:..., date:..., type:... }
-        και πρόσθεσέ την στο docs[] του κατάλληλου φακέλου
-     3. Αποθήκευσε — έτοιμο!
-   ═══════════════════════════════════════════════════════════════ */
-const FOLDERS = [
-  {
-    name: "Αιτήσεις Εγγραφής-Διαγραφής", icon: "📝",
-    docs: [
-      { name: "Αίτηση Διαγραφής από Πρόεδρο ΣΕΠΕΘ", file: "https://docs.google.com/document/d/1NjHOVRZQgwds363G-wEyqz6m_Q1IBW2mO2L-MMq5B1A/edit?usp=drive_link", date: "Ιουν 2025", type: "DOC" },
-      { name: "Αίτηση Διαγραφής από το ΔΣ του ΣΕΠΕΘΟ", file: "https://docs.google.com/document/d/1UxTdm3uL9eH7h0NHdY6qqmqyumyTSesj5BF5RkYrbZk/edit?usp=drive_link", date: "Νοε 2025", type: "DOC" },
-      { name: "Αίτηση Διαγραφής από τον Σύλλογο Αττικής", file: "https://docs.google.com/document/d/159GvHgnX4I6Porb56acAnTqxJsmf5vmxNfxPs6h6jDY/edit?usp=drive_link", date: "Ιαν 2026", type: "DOC" },
-      { name: "Αίτηση Διαγραφής (PDF)", file: "https://drive.google.com/file/d/1fbK7y-GmN5GsBe10-o8NhGfTNxjjFYGZ/view?usp=drive_link", date: "Οκτ 2024", type: "PDF" },
-      { name: "Αίτηση-Δήλωση Εγγραφής Νέου Μέλους (Λάρισα)", file: "https://drive.google.com/file/d/1XYlUwLv6QT1w6fVRuX58erVMLgRS2yPq/view?usp=drive_link", date: "Ιουλ 2025", type: "PDF" }
-    ]
-  },
-  {
-    name: "Εκδρομές", icon: "🚌",
-    docs: [
-      // { name: "Εκδρομή Σεπτεμβρίου 2025", file: "eggrafa/ekdromi-sep-2025.pdf", date: "Σεπ 2025", type: "PDF" },
-    ]
-  },
-  {
-    name: "Εκλογικά αποτελέσματα", icon: "🗳️",
-    docs: [
-      // { name: "Αποτελέσματα Εκλογών 2024", file: "eggrafa/eklogika-2024.pdf", date: "Νοε 2024", type: "PDF" },
-    ]
-  },
-  {
-    name: "Ιατρικές Εξετάσεις", icon: "🏥",
-    docs: [
-      // { name: "Πρόγραμμα Εξετάσεων 2025", file: "eggrafa/iatrikes-2025.pdf", date: "Οκτ 2025", type: "PDF" },
-    ]
-  },
-  {
-    name: "Καταστατικό", icon: "📜",
-    docs: [
-      // { name: "Καταστατικό Συλλόγου", file: "eggrafa/katastatiko.pdf", date: "Νοε 2024", type: "PDF" },
-    ]
-  },
-  {
-    name: "ΜΑΠ", icon: "📋",
-    docs: [
-      // { name: "Μέτρα Ατομικής Προστασίας", file: "eggrafa/map-2025.pdf", date: "Ιουν 2025", type: "PDF" },
-    ]
-  },
-  {
-    name: "Νομοθεσία", icon: "⚖️",
-    docs: [
-      // { name: "Εργατική Νομοθεσία 2025", file: "eggrafa/nomothesia-2025.pdf", date: "Μαρ 2025", type: "PDF" },
-    ]
-  },
-  {
-    name: "Ομαδικό Ασφαλιστήριο Υγείας", icon: "🩺",
-    docs: [
-      // { name: "Ασφαλιστήριο Συμβόλαιο", file: "eggrafa/asfalisterio.pdf", date: "Ιαν 2025", type: "PDF" },
-    ]
-  },
-  {
-    name: "Προσφορές", icon: "🎁",
-    docs: [
-      // { name: "Λίστα Προσφορών", file: "eggrafa/prosfores-2024.pdf", date: "Οκτ 2024", type: "PDF" },
-    ]
-  },
-  {
-    name: "Τροποποιήσεις του Οργανισμού", icon: "🏛️",
-    docs: [
-      // { name: "Τροποποίηση Οργανισμού 2024", file: "eggrafa/tropopoiisi-2024.pdf", date: "Οκτ 2024", type: "PDF" },
-    ]
-  },
-  {
-    name: "ΣΕΠΕΘ Εξοδολόγιο Πρότυπο", icon: "📊",
-    docs: [
-      // { name: "Εξοδολόγιο Πρότυπο", file: "eggrafa/exodologio.xlsx", date: "Μαρ 2025", type: "XLSX" },
-    ]
-  },
-];
+  /* ΟΔΗΓΙΕΣ: 
+     Αντικαταστήστε το "https://..." με το Link Κοινής Χρήσης του κάθε Φακέλου από το Google Drive.
+  */
+  const FOLDERS = [
+    { name: "Αιτήσεις Εγγραφής-Διαγραφής", icon: "📝", link: "https://drive.google.com/drive/folders/1P256yNVUqciE9SePTFQuK-Y6rOuMdB35?usp=drive_link" },
+    { name: "Εκδρομές", icon: "🚌", link: "https://drive.google.com/drive/folders/1I1Aa9UEKrtMIxhiI4ISOw77grVcrt9o-?usp=drive_link" },
+    { name: "Εκλογικά αποτελέσματα", icon: "🗳️", link: "https://drive.google.com/drive/folders/1Ga2V91HCbm5edFGcuuaGl4MxrQNoAnyS?usp=drive_link" },
+    { name: "Ιατρικές Εξετάσεις", icon: "🏥", link: "https://drive.google.com/drive/folders/1M7jLYkQbbZi85UXKKZQTXPwVaKeZekU7?usp=drive_link" },
+    { name: "Καταστατικό", icon: "📜", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "ΜΑΠ", icon: "📋", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Νομοθεσία", icon: "⚖️", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Ομαδικό Ασφαλιστήριο Υγείας", icon: "🩺", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Προσφορές", icon: "🎁", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Τροποποιήσεις του Οργανισμού", icon: "🏛️", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "ΣΕΠΕΘ Εξοδολόγιο Πρότυπο", icon: "📊", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" }
+  ];
 
-/* ── UI ── */
-const folderGrid  = document.getElementById('folderGrid');
-const viewFolders = document.getElementById('view-folders');
-const viewDocs    = document.getElementById('view-docs');
-const docList     = document.getElementById('docList');
-const folderTitle = document.getElementById('folder-title');
-const bcFolder    = document.getElementById('bc-folder');
-const bcSep       = document.getElementById('bc-sep');
+  const folderGrid = document.getElementById('folderGrid');
 
-function showFolders() {
-  viewFolders.style.display = '';
-  viewDocs.style.display = 'none';
-  bcFolder.textContent = '';
-  bcSep.style.display = 'none';
-  renderFolders();
-}
-
-function renderFolders() {
-  folderGrid.innerHTML = '';
-  FOLDERS.forEach((f, i) => {
-    const c = f.docs.length;
-    const card = document.createElement('div');
-    card.className = 'folder-card';
-    card.style.animationDelay = (0.03 + i * 0.03) + 's';
-    card.innerHTML = `
-      <div class="f-icon">${f.icon}</div>
-      <div class="f-name">${f.name}</div>
-      <div class="f-count">${c === 0 ? 'Κανένα αρχείο ακόμα' : c + ' αρχεί' + (c === 1 ? 'ο' : 'α')}</div>`;
-    card.addEventListener('click', () => openFolder(i));
-    folderGrid.appendChild(card);
-  });
-}
-
-function openFolder(i) {
-  const folder = FOLDERS[i];
-  viewFolders.style.display = 'none';
-  viewDocs.style.display = 'block';
-  folderTitle.textContent = folder.name;
-  bcFolder.textContent = folder.name;
-  bcSep.style.display = '';
-  docList.innerHTML = '';
-
-  if (!folder.docs.length) {
-    docList.innerHTML = '<li><div class="empty">Δεν υπάρχουν διαθέσιμα έγγραφα σε αυτή την κατηγορία.</div></li>';
-    return;
+  function renderFolders() {
+    folderGrid.innerHTML = '';
+    FOLDERS.forEach((f, i) => {
+      const card = document.createElement('div');
+      card.className = 'folder-card';
+      card.style.animationDelay = (i * 0.05) + 's';
+      card.innerHTML = `
+        <div class="f-icon">${f.icon}</div>
+        <div class="f-name">${f.name}</div>
+        <div class="f-action">Άνοιγμα Φακέλου ↗</div>
+      `;
+      card.addEventListener('click', () => {
+        window.open(f.link, '_blank');
+      });
+      folderGrid.appendChild(card);
+    });
   }
-  folder.docs.forEach((doc, j) => {
-    const emoji = { XLSX:'📊', DOCX:'📝', DOC:'📝' }[doc.type] || '📄';
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <a class="doc-item" href="${doc.file}" target="_blank" rel="noopener" style="animation-delay:${0.05+j*0.05}s">
-        <div class="doc-icon">${emoji}</div>
-        <div class="doc-info">
-          <div class="doc-name">${doc.name}</div>
-          <div class="doc-meta">${doc.type} · ${doc.date}</div>
-        </div>
-        <span class="doc-arrow">↗</span>
-      </a>`;
-    docList.appendChild(li);
-  });
-}
 
-document.getElementById('yr').textContent = new Date().getFullYear();
-renderFolders();
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  renderFolders();
 </script>
+
 </body>
 </html>
