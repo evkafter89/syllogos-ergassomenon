@@ -26,33 +26,45 @@
     header {
       position: relative; z-index: 1;
       background: var(--ink); color: var(--paper);
-      text-align: center; padding: 3.5rem 1.5rem 3rem;
+      text-align: center; padding: 4rem 1.5rem 3.5rem;
       border-bottom: 5px solid var(--gold);
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
-    /* Logo - Σταθερό link από επίσημη πηγή */
-    .header-logo {
-      display: block;
-      margin: 0 auto 1.5rem;
-      height: 90px;
-      width: auto;
-      filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+    /* Η Αργώ πάνω αριστερά σαν σφραγίδα */
+    .argo-stamp {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      width: 70px;
+      height: 70px;
+      background: white;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      box-shadow: 0 0 10px rgba(201, 168, 76, 0.3);
+      filter: grayscale(100%); /* Για να μοιάζει με το ασπρόμαυρο logo σου */
     }
 
-    .masthead-rule { width: 60px; height: 2px; background: var(--gold); margin: 0 auto 1rem; }
+    @media (max-width: 768px) {
+      .argo-stamp { width: 50px; height: 50px; font-size: 1.5rem; top: 1rem; left: 1rem; }
+    }
+
+    .masthead-rule { width: 60px; height: 2px; background: var(--gold); margin: 0 auto 1.2rem; }
     header h1 {
       font-family: 'Marcellus', serif;
       font-size: clamp(1.8rem, 5vw, 3.2rem); font-weight: 400;
       letter-spacing: 0.05em; line-height: 1.2;
-      margin-bottom: 0.5rem;
     }
     header h1 span { color: var(--gold); }
-    header p.subtitle { font-size: 1.1rem; font-weight: 400; font-style: italic; color: #d8d0c0; letter-spacing: 0.02em; }
+    header p.subtitle { margin-top: 0.8rem; font-size: 1.1rem; font-weight: 400; font-style: italic; color: #d8d0c0; }
 
     .search-container { position: relative; z-index: 1; max-width: 600px; margin: -1.5rem auto 2.5rem; padding: 0 1.5rem; }
     #searchInput {
-      width: 100%; padding: 1rem 1.5rem 1rem 3rem;
+      width: 100%; padding: 1.1rem 1.5rem 1.1rem 3.2rem;
       font-family: inherit; font-size: 1rem;
       border: 1px solid var(--border); border-radius: 30px;
       background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.08);
@@ -62,14 +74,14 @@
     .search-icon { position: absolute; left: 2.5rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.2rem; }
 
     main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 5rem; }
-    .section-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding: 0 0.5rem; }
-    .section-label h2 { font-family: 'Marcellus', serif; font-size: 1.6rem; font-weight: 400; color: var(--ink); letter-spacing: 0.02em; }
+    .section-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
+    .section-label h2 { font-family: 'Marcellus', serif; font-size: 1.6rem; font-weight: 400; color: var(--ink); }
     .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.8rem;
+      gap: 2rem;
     }
     .folder-card {
       background: white; border: 1px solid var(--border); border-top: 5px solid var(--rust);
@@ -79,21 +91,21 @@
       animation: fadeUp 0.5s ease both;
     }
     .folder-card:hover { 
-      box-shadow: 0 15px 35px rgba(0,0,0,0.12); 
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1); 
       border-top-color: var(--gold); 
       transform: translateY(-8px); 
     }
     .f-icon { font-size: 3.5rem; transition: transform 0.3s ease; }
     .f-name { font-family: 'Marcellus', serif; font-size: 1.2rem; font-weight: 400; color: var(--ink); line-height: 1.4; min-height: 2.8em; display: flex; align-items: center; }
-    .f-action { font-size: 0.85rem; color: var(--rust); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; border: 2px solid var(--border); padding: 7px 16px; border-radius: 20px; transition: all 0.2s ease; }
+    .f-action { font-size: 0.8rem; color: var(--rust); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; border: 2px solid var(--border); padding: 8px 18px; border-radius: 20px; }
     .folder-card:hover .f-action { background: var(--rust); color: white; border-color: var(--rust); }
 
     footer {
       position: relative; z-index: 1; border-top: 1px solid var(--border);
       text-align: center; padding: 3.5rem 1.5rem; font-size: 0.9rem; color: var(--muted); background: var(--cream);
     }
-    .footer-content { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; align-items: center; }
-    .contact-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 10px 20px; border: 1px solid var(--muted); border-radius: 25px; color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: all 0.2s ease; }
+    .footer-content { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.2rem; align-items: center; }
+    .contact-btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 10px 22px; border: 1px solid var(--muted); border-radius: 25px; color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: all 0.2s ease; }
     .contact-btn:hover { background: var(--muted); color: white; }
 
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -102,7 +114,7 @@
 <body>
 
 <header>
-  <img src="https://thessaly.gov.gr/wp-content/uploads/2021/07/logo.png" alt="Περιφέρεια Θεσσαλίας" class="header-logo">
+  <div class="argo-stamp">⛵</div>
   
   <div class="masthead-rule"></div>
   <h1>Σύλλογος <span>Εργαζομένων</span></h1>
@@ -111,7 +123,7 @@
 
 <div class="search-container">
   <span class="search-icon">🔍</span>
-  <input type="text" id="searchInput" placeholder="Αναζήτηση κατηγορίας (π.χ. εκδρομές)...">
+  <input type="text" id="searchInput" placeholder="Αναζήτηση κατηγορίας (π.χ. εκλογικά)...">
 </div>
 
 <main>
