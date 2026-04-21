@@ -9,7 +9,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --ink:    #1a1410;
-      --paper:  #fdfcf9; /* Πιο ανοιχτό, καθαρό χαρτί */
+      --paper:  #fdfcf9;
       --cream:  #f2ece0;
       --rust:   #8b3a2a;
       --gold:   #c9a84c;
@@ -23,7 +23,6 @@
       pointer-events: none; z-index: 0;
     }
     
-    /* --- HEADER & LOGO --- */
     header {
       position: relative; z-index: 1;
       background: var(--ink); color: var(--paper);
@@ -49,7 +48,6 @@
     header h1 span { color: var(--gold); }
     header p.subtitle { margin-top: 0.8rem; font-size: 1rem; font-weight: 400; font-style: italic; color: #d8d0c0; letter-spacing: 0.02em; }
 
-    /* --- SEARCH BAR --- */
     .search-container { position: relative; z-index: 1; max-width: 600px; margin: -1.5rem auto 2.5rem; padding: 0 1.5rem; }
     #searchInput {
       width: 100%; padding: 1rem 1.5rem 1rem 3rem;
@@ -61,7 +59,6 @@
     #searchInput:focus { outline: none; border-color: var(--gold); box-shadow: 0 5px 20px rgba(201, 168, 76, 0.2); }
     .search-icon { position: absolute; left: 2.5rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.2rem; }
 
-    /* --- MAIN CONTENT --- */
     main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 5rem; }
     .section-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding: 0 0.5rem; }
     .section-label h2 { font-family: 'Marcellus', serif; font-size: 1.6rem; font-weight: 400; color: var(--ink); letter-spacing: 0.02em; }
@@ -78,9 +75,7 @@
       cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem;
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       animation: fadeUp 0.5s ease both;
-      opacity: 1; transform: scale(1);
     }
-    .folder-card.hidden { opacity: 0; transform: scale(0.9); pointer-events: none; position: absolute; } /* Για το φιλτράρισμα */
     .folder-card:hover { 
       box-shadow: 0 15px 35px rgba(0,0,0,0.12); 
       border-top-color: var(--gold); 
@@ -92,7 +87,6 @@
     .f-action { font-size: 0.8rem; color: var(--rust); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; border: 2px solid var(--border); padding: 6px 14px; border-radius: 20px; transition: all 0.2s ease; }
     .folder-card:hover .f-action { background: var(--rust); color: white; border-color: var(--rust); }
 
-    /* --- FOOTER --- */
     footer {
       position: relative; z-index: 1; border-top: 1px solid var(--border);
       text-align: center; padding: 3rem 1.5rem; font-size: 0.9rem; color: var(--muted); background: var(--cream);
@@ -128,25 +122,22 @@
 <footer>
   <div class="footer-content">
     <p>&copy; <span id="yr"></span> Σύλλογος Εργαζομένων · Η διαχείριση αρχείων γίνεται μέσω Google Drive</p>
-    <a href="mailto:info@syllogos.gr" class="contact-btn">✉ Επικοινωνία με το Δ.Σ.</a> </div>
+    <a href="mailto:info@syllogos.gr" class="contact-btn">✉ Επικοινωνία με το Δ.Σ.</a>
+  </div>
 </footer>
 
 <script>
-  /* ΟΔΗΓΙΕΣ: 
-     Αντικαταστήστε το "https://..." με το Link Κοινής Χρήσης του κάθε Φακέλου από το Google Drive.
-  */
   const FOLDERS = [
-    { name: "Αιτήσεις Εγγραφής-Διαγραφής", icon: "📝", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
-    { name: "Εκδρομές", icon: "🚌", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
-    { name: "Εκλογικά αποτελέσματα", icon: "🗳️", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
-    { name: "Ιατρικές Εξετάσεις", icon: "🏥", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
-    { name: "Καταστατικό", icon: "📜", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
-    { name: "ΜΑΠ (Μέτρα Ατομικής Προστασίας)", icon: "📋", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
-    { name: "Νομοθεσία", icon: "⚖️", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
-    { name: "Ομαδικό Ασφαλιστήριο Υγείας", icon: "🩺", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
-    { name: "Προσφορές", icon: "🎁", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
-    { name: "Τροποποιήσεις του Οργανισμού", icon: "🏛️", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
-    { name: "ΣΕΠΕΘ Εξοδολόγιο Πρότυπο", icon: "📊", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" }
+    { name: "Αιτήσεις Εγγραφής-Διαγραφής", icon: "📝", link: "https://drive.google.com/drive/folders/1P256yNVUqciE9SePTFQuK-Y6rOuMdB35?usp=drive_link" },
+    { name: "Εκδρομές", icon: "🚌", link: "https://drive.google.com/drive/folders/1I1Aa9UEKrtMIxhiI4ISOw77grVcrt9o-?usp=drive_link" },
+    { name: "Εκλογικά αποτελέσματα", icon: "🗳️", link: "https://drive.google.com/drive/folders/1Ga2V91HCbm5edFGcuuaGl4MxrQNoAnyS?usp=drive_link" },
+    { name: "Ιατρικές Εξετάσεις", icon: "🏥", link: "https://drive.google.com/drive/folders/1M7jLYkQbbZi85UXKKZQTXPwVaKeZekU7?usp=drive_link" },
+    { name: "Καταστατικό", icon: "📜", link: "https://drive.google.com/drive/folders/1Px6of-h6U_F8KcZqtFfJS7frfRfGORx9?usp=drive_link" },
+    { name: "ΜΑΠ", icon: "📋", link: "https://drive.google.com/drive/folders/1H8qZXCKKhvi_JrPb2pyYqi1uBYuK0Zgw?usp=drive_link" },
+    { name: "Νομοθεσία", icon: "⚖️", link: "https://drive.google.com/drive/folders/1N477kmdRWF1Iq8cveLsTZJk9qL6do_3P?usp=drive_link" },
+    { name: "Ομαδικό Ασφαλιστήριο Υγείας", icon: "🩺", link: "https://drive.google.com/drive/folders/1Rj8ZIIXiuwFi-lro3f_x1MuJdGvcawdR?usp=drive_link" },
+    { name: "Προσφορές", icon: "🎁", link: "https://drive.google.com/drive/folders/1_gNLyunnV9aeNFx3jZ8AV3DEeN75uOke?usp=drive_link" },
+    { name: "Τροποποιήσεις του Οργανισμού", icon: "🏛️", link: "https://drive.google.com/drive/folders/1MuExYuJpOuK9QByuee5sqK2psO052_r4?usp=drive_link" }
   ];
 
   const folderGrid = document.getElementById('folderGrid');
@@ -172,13 +163,12 @@
     });
   }
 
-  // Λειτουργία αναζήτησης
   searchInput.addEventListener('input', (e) => {
     renderFolders(e.target.value);
   });
 
   document.getElementById('yr').textContent = new Date().getFullYear();
-  renderFolders(); // Αρχική φόρτωση
+  renderFolders();
 </script>
 
 </body>
