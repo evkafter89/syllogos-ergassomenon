@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Σύλλογος Εργαζομένων — Ψηφιακό Αρχείο</title>
+  <title>Σύλλογος Εργαζομένων — Ψηφιακό Αρχείο (Μαγνησία)</title>
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,7 +30,19 @@
       border-bottom: 5px solid var(--gold);
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
-    .logo-container { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .logo-container { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 1rem; position: relative; }
+    
+    /* Σηματάκι Μαγνησίας - Πάνω Αριστερά */
+    .magnisia-logo {
+      position: absolute; top: -1.5rem; left: 0;
+      width: 60px; height: 60px;
+      border: 2px solid var(--gold); border-radius: 50%;
+      background: rgba(201, 168, 76, 0.1);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 10px rgba(201, 168, 76, 0.3);
+    }
+    .magnisia-char { font-family: 'Marcellus', serif; font-size: 2rem; color: var(--gold); font-weight: bold; }
+    
     .logo-circle {
       width: 80px; height: 80px;
       border: 3px solid var(--gold); border-radius: 50%;
@@ -102,11 +114,13 @@
 
 <header>
   <div class="logo-container">
+    <div class="magnisia-logo"><span class="magnisia-char">Μ</span></div>
+    
     <div class="logo-circle"><span class="logo-char">Σ</span></div>
     <div class="masthead-rule"></div>
   </div>
   <h1>Σύλλογος <span>Εργαζομένων</span></h1>
-  <p class="subtitle">Κεντρικό Ψηφιακό Αρχείο Εγγράφων</p>
+  <p class="subtitle">Ψηφιακό Αρχείο Εγγράφων (Π.Ε. Μαγνησίας)</p>
 </header>
 
 <div class="search-container">
@@ -121,8 +135,8 @@
 
 <footer>
   <div class="footer-content">
-    <p>&copy; <span id="yr"></span> Σύλλογος Εργαζομένων · Η διαχείριση αρχείων γίνεται μέσω Google Drive</p>
-    <a href="mailto:info@syllogos.gr" class="contact-btn">✉ Επικοινωνία με το Δ.Σ.</a>
+    <p>&copy; <span id="yr"></span> Σύλλογος Εργαζομένων Π.Ε. Μαγνησίας · Η διαχείριση αρχείων γίνεται μέσω Google Drive</p>
+    <a href="mailto:p.skabouras@thessaly.gov.gr" class="contact-btn">✉ Επικοινωνία με τον Πρόεδρο</a>
   </div>
 </footer>
 
