@@ -10,7 +10,7 @@
     :root {
       --ink:    #1a1410;
       --paper:  #fdfcf9;
-      --cream:  #f2ece0;
+      --cream:  #ede8dc;
       --rust:   #8b3a2a;
       --gold:   #c9a84c;
       --muted:  #7a7060;
@@ -23,104 +23,101 @@
       pointer-events: none; z-index: 0;
     }
     
+    /* --- HEADER & LOGO --- */
     header {
       position: relative; z-index: 1;
       background: var(--ink); color: var(--paper);
-      text-align: center; padding: 3rem 1.5rem;
+      text-align: left; /* Αλλαγή σε αριστερή στοίχιση */
+      padding: 2.5rem 2rem;
       border-bottom: 5px solid var(--gold);
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      display: flex; /* Χρήση flexbox */
+      align-items: center; /* Κατακόρυφη ευθυγράμμιση */
+      gap: 2rem; /* Κενό ανάμεσα στα στοιχεία */
     }
-    .logo-container { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 1rem; position: relative; }
     
-    /* Σηματάκι Μαγνησίας - Πάνω Αριστερά */
+    /* Νέο Λογότυπο (Εικόνα) */
     .magnisia-logo {
-      position: absolute; top: -1.5rem; left: 0;
-      width: 60px; height: 60px;
-      border: 2px solid var(--gold); border-radius: 50%;
-      background: rgba(201, 168, 76, 0.1);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 10px rgba(201, 168, 76, 0.3);
+      width: 120px; /* Ρύθμιση μεγέθους */
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Διακριτική σκιά */
     }
-    .magnisia-char { font-family: 'Marcellus', serif; font-size: 2rem; color: var(--gold); font-weight: bold; }
     
-    .logo-circle {
-      width: 80px; height: 80px;
-      border: 3px solid var(--gold); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(201, 168, 76, 0.1);
-      box-shadow: 0 0 15px rgba(201, 168, 76, 0.3);
-    }
-    .logo-char { font-family: 'Marcellus', serif; font-size: 3.5rem; color: var(--gold); font-weight: bold; line-height: 1; }
-    .masthead-rule { width: 60px; height: 2px; background: var(--gold); margin: 0 auto; }
+    .masthead-rule { width: 100%; height: 2px; background: var(--gold); margin: 0 auto; }
+    
+    .header-text-container { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
     header h1 {
       font-family: 'Marcellus', serif;
-      font-size: clamp(1.8rem, 5vw, 3.2rem); font-weight: 400;
+      font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 400;
       letter-spacing: 0.05em; line-height: 1.2;
     }
     header h1 span { color: var(--gold); }
-    header p.subtitle { margin-top: 0.8rem; font-size: 1rem; font-weight: 400; font-style: italic; color: #d8d0c0; letter-spacing: 0.02em; }
+    header p.subtitle { font-size: 1rem; font-weight: 400; font-style: italic; color: #d8d0c0; letter-spacing: 0.02em; }
 
+    /* --- SEARCH BAR (Αναβαθμισμένη) --- */
     .search-container { position: relative; z-index: 1; max-width: 600px; margin: -1.5rem auto 2.5rem; padding: 0 1.5rem; }
     #searchInput {
-      width: 100%; padding: 1rem 1.5rem 1rem 3rem;
+      width: 100%; padding: 1.2rem 1.8rem 1.2rem 3.5rem;
       font-family: inherit; font-size: 1rem;
       border: 1px solid var(--border); border-radius: 30px;
-      background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      transition: all 0.2s ease;
+      background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-    #searchInput:focus { outline: none; border-color: var(--gold); box-shadow: 0 5px 20px rgba(201, 168, 76, 0.2); }
-    .search-icon { position: absolute; left: 2.5rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.2rem; }
+    #searchInput:focus { outline: none; border-color: var(--gold); box-shadow: 0 5px 20px rgba(201, 168, 76, 0.3); } /* Χρυσό εφέ focus */
+    .search-icon { position: absolute; left: 2.8rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.2rem; }
 
+    /* --- MAIN CONTENT --- */
     main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 5rem; }
-    .section-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding: 0 0.5rem; }
-    .section-label h2 { font-family: 'Marcellus', serif; font-size: 1.6rem; font-weight: 400; color: var(--ink); letter-spacing: 0.02em; }
+    .section-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; padding: 0 0.5rem; }
+    .section-label h2 { font-family: 'Marcellus', serif; font-size: 1.8rem; font-weight: 400; color: var(--ink); letter-spacing: 0.03em; }
     .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.8rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2rem;
     }
     .folder-card {
       background: white; border: 1px solid var(--border); border-top: 5px solid var(--rust);
-      border-radius: 6px; padding: 2rem 1.5rem;
-      cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem;
+      border-radius: 6px; padding: 2.5rem 1.8rem;
+      cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.2rem;
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      animation: fadeUp 0.5s ease both;
+      animation: fadeUp 0.6s ease both;
     }
     .folder-card:hover { 
-      box-shadow: 0 15px 35px rgba(0,0,0,0.12); 
+      box-shadow: 0 20px 45px rgba(0,0,0,0.15); /* Πιο έντονη σκιά hover */
       border-top-color: var(--gold); 
-      transform: translateY(-8px); 
+      transform: translateY(-10px); /* Εφέ "pull" */
     }
-    .f-icon { font-size: 3rem; transition: transform 0.3s ease; }
-    .folder-card:hover .f-icon { transform: scale(1.1); }
-    .f-name { font-family: 'Marcellus', serif; font-size: 1.1rem; font-weight: 400; color: var(--ink); line-height: 1.4; min-height: 2.8em; display: flex; align-items: center; letter-spacing: 0.01em; }
-    .f-action { font-size: 0.8rem; color: var(--rust); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; border: 2px solid var(--border); padding: 6px 14px; border-radius: 20px; transition: all 0.2s ease; }
+    .f-icon { font-size: 3.5rem; transition: transform 0.3s ease; }
+    .folder-card:hover .f-icon { transform: scale(1.15); }
+    .f-name { font-family: 'Marcellus', serif; font-size: 1.2rem; font-weight: 400; color: var(--ink); line-height: 1.4; min-height: 3em; display: flex; align-items: center; letter-spacing: 0.02em; }
+    .f-action { font-size: 0.85rem; color: var(--rust); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; border: 2px solid var(--border); padding: 8px 18px; border-radius: 20px; transition: all 0.3s ease; }
     .folder-card:hover .f-action { background: var(--rust); color: white; border-color: var(--rust); }
 
+    /* --- FOOTER (Αναβαθμισμένο) --- */
     footer {
       position: relative; z-index: 1; border-top: 1px solid var(--border);
-      text-align: center; padding: 3rem 1.5rem; font-size: 0.9rem; color: var(--muted); background: var(--cream);
+      text-align: center; padding: 3.5rem 2rem; font-size: 0.9rem; color: var(--muted); background: var(--cream);
     }
-    .footer-content { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; align-items: center; }
-    .contact-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 8px 16px; border: 1px solid var(--muted); border-radius: 20px; color: var(--muted); text-decoration: none; font-size: 0.8rem; transition: all 0.2s ease; }
-    .contact-btn:hover { background: var(--muted); color: white; }
+    .footer-content { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
+    footer p { line-height: 1.6; color: #6a6050; } /* Πιο έντονο κείμενο footer */
+    .contact-btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 10px 20px; border: 1px solid var(--muted); border-radius: 25px; color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    .contact-btn:hover { background: var(--muted); color: white; transform: scale(1.03); } /* Εφέscale hover */
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="logo-container">
-    <div class="magnisia-logo"><span class="magnisia-char">Μ</span></div>
-    
-    <div class="logo-circle"><span class="logo-char">Σ</span></div>
-    <div class="masthead-rule"></div>
+  <img src="https://thessaly.gov.gr/wp-content/uploads/2021/07/logo.png" alt="Περιφέρεια Θεσσαλίας" class="magnisia-logo">
+  
+  <div class="header-text-container">
+    <h1>Σύλλογος <span>Εργαζομένων</span></h1>
+    <p class="subtitle">Κεντρικό Ψηφιακό Αρχείο Εγγράφων (Π.Ε. Μαγνησίας)</p>
   </div>
-  <h1>Σύλλογος <span>Εργαζομένων</span></h1>
-  <p class="subtitle">Ψηφιακό Αρχείο Εγγράφων (Π.Ε. Μαγνησίας)</p>
 </header>
 
 <div class="search-container">
@@ -164,7 +161,7 @@
     filteredFolders.forEach((f, i) => {
       const card = document.createElement('div');
       card.className = 'folder-card';
-      card.style.animationDelay = (i * 0.04) + 's';
+      card.style.animationDelay = (i * 0.05) + 's';
       card.innerHTML = `
         <div class="f-icon">${f.icon}</div>
         <div class="f-name">${f.name}</div>
