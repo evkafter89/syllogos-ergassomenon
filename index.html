@@ -3,689 +3,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Σύλλογος Εργαζομένων — Έγγραφα</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <title>Σύλλογος Εργαζομένων — Ψηφιακό Αρχείο</title>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --ink:    #1a1410;
-      --paper:  #f5f0e8;
-      --cream:  #ede8dc;
+      --paper:  #fdfcf9; /* Πιο ανοιχτό, καθαρό χαρτί */
+      --cream:  #f2ece0;
       --rust:   #8b3a2a;
-      --rust2:  #a04535;
       --gold:   #c9a84c;
-      --gold2:  #e8c96a;
       --muted:  #7a7060;
-      --border: #d0c8b8;
-      --green:  #2d6a4f;
+      --border: #e0d8c8;
     }
- 
-    html { scroll-behavior: smooth; }
- 
-    body {
-      font-family: 'Source Serif 4', Georgia, serif;
-      background: var(--paper);
-      color: var(--ink);
-      min-height: 100vh;
-    }
- 
-    /* paper texture */
+    body { font-family: 'Noto Serif', Georgia, serif; background: var(--paper); color: var(--ink); min-height: 100vh; position: relative; }
     body::before {
-      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
     }
- 
-    /* ── ADMIN BAR ── */
-    #admin-bar {
-      position: relative; z-index: 10;
-      background: #16100a; color: #f0ead8;
-      padding: 0.5rem 1.5rem;
-      display: flex; align-items: center; gap: 1rem;
-      font-size: 0.78rem; border-bottom: 2px solid var(--gold);
-    }
-    #admin-bar.hidden { display: none; }
-    #admin-bar .ab-label { flex: 1; font-style: italic; color: #9a8868; }
-    #admin-bar button {
-      background: none; border: 1px solid #6a5a40; border-radius: 3px;
-      color: #f0ead8; padding: 0.28rem 0.75rem; cursor: pointer;
-      font-family: inherit; font-size: 0.76rem; transition: background 0.2s;
-    }
-    #admin-bar button:hover { background: rgba(255,255,255,0.08); }
- 
-    /* ── HEADER ── */
+    
+    /* --- HEADER & LOGO --- */
     header {
       position: relative; z-index: 1;
-      background: var(--ink);
-      overflow: hidden;
+      background: var(--ink); color: var(--paper);
+      text-align: center; padding: 3rem 1.5rem;
+      border-bottom: 5px solid var(--gold);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
- 
-    /* decorative diagonal lines */
-    header::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background-image: repeating-linear-gradient(
-        -55deg,
-        transparent,
-        transparent 28px,
-        rgba(201,168,76,0.04) 28px,
-        rgba(201,168,76,0.04) 29px
-      );
+    .logo-container { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .logo-circle {
+      width: 80px; height: 80px;
+      border: 3px solid var(--gold); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(201, 168, 76, 0.1);
+      box-shadow: 0 0 15px rgba(201, 168, 76, 0.3);
     }
- 
-    .header-inner {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 2.5rem 1.5rem 2rem;
-      border-bottom: 4px solid var(--gold);
-    }
- 
-    /* logo SVG */
-    .logo-wrap {
-      width: 110px; height: 110px; margin-bottom: 1.2rem;
-      filter: drop-shadow(0 4px 16px rgba(201,168,76,0.25));
-    }
- 
+    .logo-char { font-family: 'Marcellus', serif; font-size: 3.5rem; color: var(--gold); font-weight: bold; line-height: 1; }
+    .masthead-rule { width: 60px; height: 2px; background: var(--gold); margin: 0 auto; }
     header h1 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(1.6rem, 5vw, 2.8rem);
-      font-weight: 900;
-      color: var(--paper);
-      letter-spacing: 0.02em;
-      line-height: 1.15;
-      text-align: center;
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.8rem, 5vw, 3.2rem); font-weight: 400;
+      letter-spacing: 0.05em; line-height: 1.2;
     }
     header h1 span { color: var(--gold); }
- 
-    header .subtitle {
-      margin-top: 0.5rem;
-      font-size: 0.85rem; font-weight: 300; font-style: italic;
-      color: #b0a890; letter-spacing: 0.06em; text-align: center;
+    header p.subtitle { margin-top: 0.8rem; font-size: 1rem; font-weight: 400; font-style: italic; color: #d8d0c0; letter-spacing: 0.02em; }
+
+    /* --- SEARCH BAR --- */
+    .search-container { position: relative; z-index: 1; max-width: 600px; margin: -1.5rem auto 2.5rem; padding: 0 1.5rem; }
+    #searchInput {
+      width: 100%; padding: 1rem 1.5rem 1rem 3rem;
+      font-family: inherit; font-size: 1rem;
+      border: 1px solid var(--border); border-radius: 30px;
+      background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: all 0.2s ease;
     }
- 
-    .header-rule {
-      display: flex; align-items: center; gap: 0.8rem;
-      margin-top: 1.2rem; width: min(380px, 90%);
-    }
-    .header-rule::before, .header-rule::after { content: ''; flex: 1; height: 1px; background: rgba(201,168,76,0.35); }
-    .header-rule span { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.2em; white-space: nowrap; }
- 
-    /* ── BREADCRUMB ── */
-    #breadcrumb {
-      position: relative; z-index: 1;
-      background: var(--cream); border-bottom: 1px solid var(--border);
-      padding: 0.58rem 1.5rem; font-size: 0.81rem; color: var(--muted);
-      display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; min-height: 2.4rem;
-    }
-    #breadcrumb button {
-      background: none; border: none; cursor: pointer;
-      color: var(--rust); font-size: 0.81rem; font-family: inherit;
-      padding: 0; text-decoration: underline; text-underline-offset: 2px;
-    }
-    #breadcrumb button:hover { color: var(--gold); }
- 
-    /* ── MAIN ── */
-    main { position: relative; z-index: 1; max-width: 900px; margin: 2.5rem auto; padding: 0 1.5rem 5rem; }
- 
-    .section-label {
-      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
-    }
-    .section-label h2 {
-      font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; white-space: nowrap;
-    }
+    #searchInput:focus { outline: none; border-color: var(--gold); box-shadow: 0 5px 20px rgba(201, 168, 76, 0.2); }
+    .search-icon { position: absolute; left: 2.5rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.2rem; }
+
+    /* --- MAIN CONTENT --- */
+    main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .section-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding: 0 0.5rem; }
+    .section-label h2 { font-family: 'Marcellus', serif; font-size: 1.6rem; font-weight: 400; color: var(--ink); letter-spacing: 0.02em; }
     .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
- 
-    /* ── FOLDER GRID ── */
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(178px, 1fr)); gap: 1rem; }
- 
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.8rem;
+    }
     .folder-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--rust);
-      border-radius: 5px;
-      padding: 1.15rem 1rem 1rem;
-      cursor: pointer;
-      display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem;
-      transition: box-shadow 0.22s, border-top-color 0.22s, transform 0.18s;
-      animation: fadeUp 0.38s ease both;
-      position: relative; overflow: hidden;
+      background: white; border: 1px solid var(--border); border-top: 5px solid var(--rust);
+      border-radius: 6px; padding: 2rem 1.5rem;
+      cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: fadeUp 0.5s ease both;
+      opacity: 1; transform: scale(1);
     }
-    /* shimmer top accent */
-    .folder-card::before {
-      content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 3px;
-      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
-      transition: left 0.5s ease;
+    .folder-card.hidden { opacity: 0; transform: scale(0.9); pointer-events: none; position: absolute; } /* Για το φιλτράρισμα */
+    .folder-card:hover { 
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12); 
+      border-top-color: var(--gold); 
+      transform: translateY(-8px); 
     }
-    .folder-card:hover::before { left: 120%; }
-    .folder-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.13); border-top-color: var(--gold); transform: translateY(-4px); }
- 
-    .folder-card .f-icon { font-size: 1.8rem; line-height: 1; }
-    .folder-card .f-name { font-size: 0.86rem; font-weight: 600; line-height: 1.3; }
-    .folder-card .f-sub { font-size: 0.71rem; color: var(--muted); font-style: italic; }
- 
-    /* ── DOC LIST ── */
-    #view-docs { display: none; }
-    .doc-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
- 
-    .doc-item {
-      background: white; border: 1px solid var(--border); border-left: 4px solid var(--rust);
-      border-radius: 4px; display: flex; align-items: center; padding: 0.85rem 1rem; gap: 0.9rem;
-      text-decoration: none; color: var(--ink);
-      transition: border-color 0.22s, box-shadow 0.22s, transform 0.18s;
-      animation: fadeUp 0.38s ease both;
-      position: relative; overflow: hidden;
-    }
-    .doc-item::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(90deg, rgba(139,58,42,0.04), transparent);
-      opacity: 0; transition: opacity 0.22s;
-    }
-    .doc-item:hover { border-left-color: var(--gold); box-shadow: 0 5px 20px rgba(0,0,0,0.10); transform: translateX(4px); }
-    .doc-item:hover::after { opacity: 1; }
- 
-    .doc-icon {
-      flex-shrink: 0; width: 38px; height: 46px;
-      background: var(--cream); border: 1px solid var(--border); border-radius: 3px;
-      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
-      position: relative; z-index: 1;
-    }
-    .doc-icon::after {
-      content: ''; position: absolute; top: 0; right: 0; width: 10px; height: 10px;
-      background: var(--paper); border-bottom: 1px solid var(--border); border-left: 1px solid var(--border);
-      clip-path: polygon(100% 0, 100% 100%, 0 100%);
-    }
-    .doc-info { flex: 1; min-width: 0; position: relative; z-index: 1; }
-    .doc-name { font-size: 0.94rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .doc-meta { margin-top: 0.12rem; font-size: 0.73rem; color: var(--muted); font-style: italic; }
-    .doc-arrow { flex-shrink: 0; color: var(--muted); font-size: 1rem; transition: color 0.2s, transform 0.2s; position: relative; z-index: 1; }
-    .doc-item:hover .doc-arrow { color: var(--rust); transform: translate(2px,-2px); }
- 
-    /* ── FOLDER HEADER ROW ── */
-    .folder-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.4rem; flex-wrap: wrap; gap: 0.8rem; }
-    .folder-header-row .section-label { margin-bottom: 0; flex: 1; }
- 
-    /* ── UPLOAD BUTTON ── */
-    #upload-btn {
-      display: none;
-      align-items: center; gap: 0.45rem;
-      background: var(--rust); color: white;
-      border: none; border-radius: 4px;
-      padding: 0.5rem 1.1rem;
-      font-family: inherit; font-size: 0.87rem; font-weight: 600;
-      cursor: pointer; transition: background 0.2s, box-shadow 0.2s;
-      white-space: nowrap; box-shadow: 0 2px 8px rgba(139,58,42,0.3);
-    }
-    #upload-btn:hover { background: var(--rust2); box-shadow: 0 4px 14px rgba(139,58,42,0.4); }
-    #upload-btn .plus { font-size: 1.3rem; font-weight: 900; line-height: 1; }
- 
-    /* ── MODALS (faux viewport, no fixed) ── */
-    .modal-viewport {
-      display: none; position: absolute; inset: 0; z-index: 100;
-      min-height: 100vh; background: rgba(26,20,16,0.65);
-      backdrop-filter: blur(3px);
-      align-items: flex-start; justify-content: center;
-      padding-top: 6rem;
-    }
-    .modal-viewport.open { display: flex; }
- 
-    #login-overlay, #modal-overlay {
-      display: none; position: fixed; inset: 0; z-index: 100;
-      background: rgba(26,20,16,0.65); backdrop-filter: blur(3px);
-      align-items: center; justify-content: center;
-    }
-    #login-overlay.open, #modal-overlay.open { display: flex; }
- 
-    .modal-box {
-      background: var(--paper); border: 1px solid var(--border);
-      border-top: 4px solid var(--rust); border-radius: 6px;
-      width: min(460px, 94vw); padding: 2rem;
-      animation: fadeUp 0.25s ease;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    }
-    .modal-box h3 { font-family: 'Playfair Display', serif; font-size: 1.12rem; margin-bottom: 1.3rem; }
-    .modal-box label { display: block; font-size: 0.81rem; font-weight: 600; margin-bottom: 0.28rem; color: var(--muted); letter-spacing: 0.03em; }
-    .modal-box select, .modal-box input[type=text], .modal-box input[type=password] {
-      width: 100%; padding: 0.52rem 0.8rem;
-      border: 1px solid var(--border); border-radius: 4px;
-      font-family: inherit; font-size: 0.9rem;
-      background: white; color: var(--ink); margin-bottom: 1rem;
-      transition: border-color 0.2s;
-    }
-    .modal-box select:focus, .modal-box input:focus { outline: none; border-color: var(--rust); }
- 
-    .drop-zone {
-      border: 2px dashed var(--border); border-radius: 5px;
-      padding: 1.8rem 1rem; text-align: center;
-      cursor: pointer; margin-bottom: 1rem;
-      transition: border-color 0.2s, background 0.2s;
-      font-size: 0.87rem; color: var(--muted);
-    }
-    .drop-zone.drag-over { border-color: var(--rust); background: #fff6f4; }
-    .drop-zone.has-file { border-color: var(--green); background: #f0fff6; color: var(--green); font-weight: 600; }
-    .drop-zone input[type=file] { display: none; }
- 
-    .modal-actions { display: flex; gap: 0.7rem; justify-content: flex-end; margin-top: 0.5rem; }
-    .btn-cancel {
-      background: none; border: 1px solid var(--border); border-radius: 4px;
-      padding: 0.48rem 1rem; font-family: inherit; font-size: 0.87rem; cursor: pointer; transition: background 0.2s;
-    }
-    .btn-cancel:hover { background: var(--cream); }
-    .btn-primary {
-      background: var(--rust); color: white; border: none; border-radius: 4px;
-      padding: 0.48rem 1.2rem; font-family: inherit; font-size: 0.87rem; font-weight: 600;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .btn-primary:hover { background: var(--rust2); }
-    .btn-primary:disabled { background: var(--muted); cursor: default; }
- 
-    #login-err { font-size: 0.8rem; color: var(--rust); margin-bottom: 0.5rem; min-height: 1.1em; }
- 
-    /* ── TOAST ── */
-    #toast {
-      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
-      background: var(--ink); color: var(--paper);
-      padding: 0.7rem 1.5rem; border-radius: 5px;
-      border-left: 4px solid var(--gold);
-      font-size: 0.87rem; z-index: 300; opacity: 0;
-      transition: opacity 0.3s, transform 0.3s; white-space: nowrap;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-    }
-    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    #toast.error { border-left-color: var(--rust); }
- 
-    /* ── MISC ── */
-    .back-btn {
-      display: inline-flex; align-items: center; gap: 0.45rem;
-      background: none; border: 1px solid var(--border); border-radius: 4px;
-      padding: 0.42rem 0.85rem; font-family: inherit; font-size: 0.82rem;
-      color: var(--ink); cursor: pointer; margin-bottom: 1.3rem; transition: background 0.2s;
-    }
-    .back-btn:hover { background: var(--cream); }
- 
-    .loading { text-align: center; padding: 3rem; color: var(--muted); font-style: italic; }
-    .empty { text-align: center; padding: 3rem 1rem; background: white; border: 1px dashed var(--border); border-radius: 4px; color: var(--muted); font-style: italic; }
- 
-    /* ── FOOTER ── */
+    .f-icon { font-size: 3rem; transition: transform 0.3s ease; }
+    .folder-card:hover .f-icon { transform: scale(1.1); }
+    .f-name { font-family: 'Marcellus', serif; font-size: 1.1rem; font-weight: 400; color: var(--ink); line-height: 1.4; min-height: 2.8em; display: flex; align-items: center; letter-spacing: 0.01em; }
+    .f-action { font-size: 0.8rem; color: var(--rust); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; border: 2px solid var(--border); padding: 6px 14px; border-radius: 20px; transition: all 0.2s ease; }
+    .folder-card:hover .f-action { background: var(--rust); color: white; border-color: var(--rust); }
+
+    /* --- FOOTER --- */
     footer {
-      position: relative; z-index: 1;
-      background: var(--ink); color: #806050;
-      text-align: center; padding: 1.8rem 1.5rem;
-      font-size: 0.75rem; font-style: italic;
-      border-top: 3px solid var(--gold);
+      position: relative; z-index: 1; border-top: 1px solid var(--border);
+      text-align: center; padding: 3rem 1.5rem; font-size: 0.9rem; color: var(--muted); background: var(--cream);
     }
-    footer .footer-logo { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 0.9rem; font-style: normal; letter-spacing: 0.05em; display: block; margin-bottom: 0.4rem; }
- 
-    /* spinner */
-    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.35); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 4px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .footer-content { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; align-items: center; }
+    .contact-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 8px 16px; border: 1px solid var(--muted); border-radius: 20px; color: var(--muted); text-decoration: none; font-size: 0.8rem; transition: all 0.2s ease; }
+    .contact-btn:hover { background: var(--muted); color: white; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
- 
-<!-- ══ ADMIN BAR ══ -->
-<div id="admin-bar" class="hidden">
-  <span class="ab-label">🔧 Λειτουργία Διαχειριστή</span>
-  <button onclick="logout()">Αποσύνδεση</button>
-</div>
- 
-<!-- ══ HEADER ══ -->
+
 <header>
-  <div class="header-inner">
- 
-    <!-- LOGO SVG -->
-    <div class="logo-wrap">
-      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-        <circle cx="150" cy="150" r="148" fill="#1a1410"/>
-        <circle cx="150" cy="150" r="140" fill="none" stroke="#c9a84c" stroke-width="2.5"/>
-        <circle cx="150" cy="150" r="130" fill="#1a1410"/>
-        <g stroke="#c9a84c" stroke-width="1.5" opacity="0.6">
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(0 150 150)"/>
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(30 150 150)"/>
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(60 150 150)"/>
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(90 150 150)"/>
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(120 150 150)"/>
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(150 150 150)"/>
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(180 150 150)"/>
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(210 150 150)"/>
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(240 150 150)"/>
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(270 150 150)"/>
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(300 150 150)"/>
-          <line x1="150" y1="18" x2="150" y2="10" transform="rotate(330 150 150)"/>
-        </g>
-        <!-- shield -->
-        <path d="M150 60 L198 85 L198 148 Q198 195 150 220 Q102 195 102 148 L102 85 Z" fill="#8b3a2a"/>
-        <path d="M150 68 L191 91 L191 146 Q191 188 150 212 Q109 188 109 146 L109 91 Z" fill="#a04535"/>
-        <!-- cross -->
-        <rect x="144" y="95" width="12" height="78" rx="2" fill="#f5f0e8"/>
-        <rect x="120" y="128" width="60" height="12" rx="2" fill="#f5f0e8"/>
-        <!-- handshake fingers left -->
-        <g fill="#c9a84c">
-          <rect x="108" y="133" width="42" height="9" rx="4"/>
-          <rect x="116" y="125" width="7" height="12" rx="3"/>
-          <rect x="126" y="122" width="7" height="15" rx="3"/>
-          <rect x="136" y="124" width="7" height="13" rx="3"/>
-        </g>
-        <!-- handshake fingers right -->
-        <g fill="#c9a84c">
-          <rect x="150" y="133" width="42" height="9" rx="4"/>
-          <rect x="177" y="125" width="7" height="12" rx="3"/>
-          <rect x="167" y="122" width="7" height="15" rx="3"/>
-          <rect x="157" y="124" width="7" height="13" rx="3"/>
-        </g>
-        <!-- curved top text -->
-        <path id="topA" d="M 28 150 A 122 122 0 0 1 272 150" fill="none"/>
-        <text font-family="Georgia,serif" font-size="15" font-weight="bold" fill="#c9a84c" letter-spacing="4">
-          <textPath href="#topA" startOffset="8%">ΣΥΛΛΟΓΟΣ ΕΡΓΑΖΟΜΕΝΩΝ</textPath>
-        </text>
-        <!-- curved bottom text -->
-        <path id="botA" d="M 44 188 A 122 122 0 0 0 256 188" fill="none"/>
-        <text font-family="Georgia,serif" font-size="11" fill="#f5f0e8" letter-spacing="2" opacity="0.8">
-          <textPath href="#botA" startOffset="8%">ΕΝΟΤΗΤΑ · ΑΛΛΗΛΕΓΓΥΗ · ΑΓΩΝΑΣ</textPath>
-        </text>
-      </svg>
-    </div>
- 
-    <h1>Σύλλογος <span>Εργαζομένων</span></h1>
-    <p class="subtitle">Ανακοινώσεις &amp; Έγγραφα Συλλόγου</p>
-    <div class="header-rule">
-      <span>✦ ΠΟΤΑΛ ΕΓΓΡΑΦΩΝ ✦</span>
-    </div>
+  <div class="logo-container">
+    <div class="logo-circle"><span class="logo-char">Σ</span></div>
+    <div class="masthead-rule"></div>
   </div>
+  <h1>Σύλλογος <span>Εργαζομένων</span></h1>
+  <p class="subtitle">Κεντρικό Ψηφιακό Αρχείο Εγγράφων</p>
 </header>
- 
-<!-- ══ BREADCRUMB ══ -->
-<div id="breadcrumb">
-  <button onclick="showFolders()">🏠 Αρχική</button>
-  <span id="bc-sep" style="display:none">›</span>
-  <span id="bc-folder"></span>
+
+<div class="search-container">
+  <span class="search-icon">🔍</span>
+  <input type="text" id="searchInput" placeholder="Αναζήτηση κατηγορίας (π.χ. εκδρομές)...">
 </div>
- 
-<!-- ══ MAIN ══ -->
+
 <main>
-  <div id="view-folders">
-    <div class="section-label"><h2>Κατηγορίες Εγγράφων</h2></div>
-    <div class="grid" id="folderGrid"></div>
-  </div>
- 
-  <div id="view-docs">
-    <button class="back-btn" onclick="showFolders()">← Πίσω στις κατηγορίες</button>
-    <div class="folder-header-row">
-      <div class="section-label"><h2 id="folder-title"></h2></div>
-      <button id="upload-btn" onclick="openUploadModal()">
-        <span class="plus">+</span> Ανέβασμα αρχείου
-      </button>
-    </div>
-    <ul class="doc-list" id="docList"></ul>
-  </div>
+  <div class="section-label"><h2>Κατηγορίες Αρχείων</h2></div>
+  <div class="grid" id="folderGrid"></div>
 </main>
- 
-<!-- ══ FOOTER ══ -->
+
 <footer>
-  <span class="footer-logo">Σύλλογος Εργαζομένων</span>
-  &copy; <span id="yr"></span> · Όλα τα δικαιώματα διατηρούνται
-  <br/><span style="font-size:0.68rem;opacity:0.5;margin-top:0.3rem;display:block;">Τριπλό κλικ στο λογότυπο για σύνδεση διαχειριστή</span>
+  <div class="footer-content">
+    <p>&copy; <span id="yr"></span> Σύλλογος Εργαζομένων · Η διαχείριση αρχείων γίνεται μέσω Google Drive</p>
+    <a href="mailto:info@syllogos.gr" class="contact-btn">✉ Επικοινωνία με το Δ.Σ.</a> </div>
 </footer>
- 
-<!-- ══ LOGIN MODAL ══ -->
-<div id="login-overlay">
-  <div class="modal-box">
-    <h3>🔐 Σύνδεση Διαχειριστή</h3>
-    <label>Κωδικός πρόσβασης</label>
-    <input type="password" id="pwd-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
-    <div id="login-err"></div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeLogin()">Ακύρωση</button>
-      <button class="btn-primary" onclick="doLogin()">Σύνδεση</button>
-    </div>
-  </div>
-</div>
- 
-<!-- ══ UPLOAD MODAL ══ -->
-<div id="modal-overlay">
-  <div class="modal-box">
-    <h3>📤 Ανέβασμα νέου εγγράφου</h3>
-    <label>Κατηγορία</label>
-    <select id="upload-folder-select"></select>
-    <label>Τίτλος εγγράφου <span style="font-weight:400;font-style:italic">(προαιρετικό)</span></label>
-    <input type="text" id="upload-title" placeholder="Αφήστε κενό για το όνομα αρχείου" />
-    <label>Αρχείο</label>
-    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-      <input type="file" id="file-input" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt" onchange="handleFileSelect(this)" />
-      <div id="drop-text">📂 Κλικ ή σύρτε το αρχείο εδώ<br/><small style="color:var(--muted)">PDF, Word, Excel, PowerPoint</small></div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeUploadModal()">Ακύρωση</button>
-      <button class="btn-primary" id="do-upload-btn" onclick="doUpload()" disabled>Ανέβασμα</button>
-    </div>
-  </div>
-</div>
- 
-<!-- ══ TOAST ══ -->
-<div id="toast"></div>
- 
+
 <script>
-/* ═══════════════════════════════════════════════════
-   CONFIG — συμπλήρωσε αυτά τα τρία πεδία
-   (δες το SETUP.md για οδηγίες)
-═══════════════════════════════════════════════════ */
-const API_KEY   = 'ΒΑΛΕ_ΕΔΩ_ΤΟ_GOOGLE_API_KEY';
-const CLIENT_ID = 'ΒΑΛΕ_ΕΔΩ_ΤΟ_OAUTH_CLIENT_ID';
-const ADMIN_PASS= 'ΒΑΛΕ_ΕΔΩ_ΚΩΔΙΚΟ';
- 
-/* ── FOLDERS ── */
-const FOLDERS = [
-  { name:"Αιτήσεις Εγγραφής-Διαγραφής", icon:"📝", id:"1P256yNVUqciE9SePTFQuK-Y6rOuMdB35" },
-  { name:"Εκδρομές",                      icon:"🚌", id:"1I1Aa9UEKrtMIxhiI4ISOw77grVcrt9o-" },
-  { name:"Εκλογικά αποτελέσματα",         icon:"🗳️", id:"1Ga2V91HCbm5edFGcuuaGl4MxrQNoAnyS" },
-  { name:"Ιατρικές Εξετάσεις",            icon:"🏥", id:"1M7jLYkQbbZi85UXKKZQTXPwVaKeZekU7" },
-  { name:"Καταστατικό",                   icon:"📜", id:"1Px6of-h6U_F8KcZqtFfJS7frfRfGORx9" },
-  { name:"ΜΑΠ",                           icon:"📋", id:"1H8qZXCKKhvi_JrPb2pyYqi1uBYuK0Zgw" },
-  { name:"Νομοθεσία",                     icon:"⚖️", id:"1N477kmdRWF1Iq8cveLsTZJk9qL6do_3P" },
-  { name:"Ομαδικό Ασφαλιστήριο Υγείας",  icon:"🩺", id:"1Rj8ZIIXiuwFi-lro3f_x1MuJdGvcawdR" },
-  { name:"Προσφορές",                     icon:"🎁", id:"1_gNLyunnV9aeNFx3jZ8AV3DEeN75uOke" },
-  { name:"Τροποποιήσεις του Οργανισμού",  icon:"🏛️", id:"1MuExYuJpOuK9QByuee5sqK2psO052_r4" },
-  { name:"ΣΕΠΕΘ Εξοδολόγιο Πρότυπο",     icon:"📊", id:"1Y-w5BumTqwcrRtR9IAmAbK_TkLsimcz7N_aYWfrHlPQ", isSheet:true },
-];
- 
-/* ── STATE ── */
-let isAdmin=false, currentFolder=null, selectedFile=null, tokenClient=null, accessToken=null;
- 
-/* ── SECRET LOGIN: τριπλό κλικ στο λογότυπο ── */
-let sc=0, st=null;
-document.querySelector('.logo-wrap').addEventListener('click', ()=>{
-  sc++; clearTimeout(st); st=setTimeout(()=>sc=0,1200);
-  if(sc>=3){ sc=0; openLogin(); }
-});
- 
-function openLogin(){
-  document.getElementById('login-overlay').classList.add('open');
-  document.getElementById('pwd-input').value='';
-  document.getElementById('login-err').textContent='';
-  setTimeout(()=>document.getElementById('pwd-input').focus(),120);
-}
-function closeLogin(){ document.getElementById('login-overlay').classList.remove('open'); }
-function doLogin(){
-  if(document.getElementById('pwd-input').value===ADMIN_PASS){
-    isAdmin=true; closeLogin();
-    document.getElementById('admin-bar').classList.remove('hidden');
-    if(currentFolder!==null) document.getElementById('upload-btn').style.display='flex';
-    showToast('✅ Συνδεθήκατε ως διαχειριστής');
-  } else { document.getElementById('login-err').textContent='❌ Λάθος κωδικός.'; }
-}
-function logout(){
-  isAdmin=false; accessToken=null;
-  document.getElementById('admin-bar').classList.add('hidden');
-  document.getElementById('upload-btn').style.display='none';
-  showToast('Αποσυνδεθήκατε');
-}
- 
-/* ── NAV ── */
-function showFolders(){
-  currentFolder=null;
-  document.getElementById('view-folders').style.display='';
-  document.getElementById('view-docs').style.display='none';
-  document.getElementById('bc-folder').textContent='';
-  document.getElementById('bc-sep').style.display='none';
-  document.getElementById('upload-btn').style.display='none';
-  renderFolders();
-}
- 
-function renderFolders(){
-  const g=document.getElementById('folderGrid'); g.innerHTML='';
-  FOLDERS.forEach((f,i)=>{
-    const c=document.createElement('div');
-    c.className='folder-card'; c.style.animationDelay=(0.03+i*0.03)+'s';
-    c.innerHTML=`<div class="f-icon">${f.icon}</div><div class="f-name">${f.name}</div><div class="f-sub">${f.isSheet?'Google Sheets':'Φάκελος Drive'}</div>`;
-    c.addEventListener('click',()=>openFolder(i));
-    g.appendChild(c);
-  });
-}
- 
-async function openFolder(i){
-  currentFolder=i;
-  const f=FOLDERS[i];
-  document.getElementById('view-folders').style.display='none';
-  document.getElementById('view-docs').style.display='';
-  document.getElementById('folder-title').textContent=f.name;
-  document.getElementById('bc-folder').textContent=f.name;
-  document.getElementById('bc-sep').style.display='';
-  if(isAdmin&&!f.isSheet) document.getElementById('upload-btn').style.display='flex';
-  else document.getElementById('upload-btn').style.display='none';
-  const list=document.getElementById('docList');
-  list.innerHTML='<li><div class="loading">⏳ Φόρτωση εγγράφων...</div></li>';
-  if(f.isSheet){
-    list.innerHTML='';
-    const li=document.createElement('li');
-    li.innerHTML=`<a class="doc-item" href="https://docs.google.com/spreadsheets/d/${f.id}/edit?usp=sharing" target="_blank" rel="noopener"><div class="doc-icon">📊</div><div class="doc-info"><div class="doc-name">ΣΕΠΕΘ Εξοδολόγιο Πρότυπο</div><div class="doc-meta">Google Sheets · Ανοίγει στο Drive</div></div><span class="doc-arrow">↗</span></a>`;
-    list.appendChild(li); return;
-  }
-  try{ renderDocs(await fetchDriveFiles(f.id)); }
-  catch(e){ list.innerHTML='<li><div class="empty">⚠️ Δεν ήταν δυνατή η φόρτωση. Βεβαιωθείτε ότι ο φάκελος είναι κοινόχρηστος.</div></li>'; }
-}
- 
-/* ── DRIVE READ ── */
-async function fetchDriveFiles(fid){
-  const q=encodeURIComponent(`'${fid}' in parents and trashed=false`);
-  const r=await fetch(`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name,mimeType,modifiedTime)&orderBy=name&key=${API_KEY}`);
-  if(!r.ok) throw new Error(await r.text());
-  return (await r.json()).files||[];
-}
- 
-function renderDocs(files){
-  const list=document.getElementById('docList'); list.innerHTML='';
-  if(!files.length){ list.innerHTML='<li><div class="empty">Δεν υπάρχουν διαθέσιμα έγγραφα σε αυτή την κατηγορία.</div></li>'; return; }
-  files.forEach((f,j)=>{
-    const emoji=mimeEmoji(f.mimeType), ext=mimeLabel(f.mimeType);
-    const date=f.modifiedTime?new Date(f.modifiedTime).toLocaleDateString('el-GR',{month:'short',year:'numeric'}):'';
-    const href=f.mimeType==='application/vnd.google-apps.spreadsheet'
-      ?`https://docs.google.com/spreadsheets/d/${f.id}/edit?usp=sharing`
-      :`https://drive.google.com/file/d/${f.id}/view?usp=sharing`;
-    const li=document.createElement('li');
-    li.innerHTML=`<a class="doc-item" href="${href}" target="_blank" rel="noopener" style="animation-delay:${0.04+j*0.04}s"><div class="doc-icon">${emoji}</div><div class="doc-info"><div class="doc-name">${f.name}</div><div class="doc-meta">${ext}${date?'· '+date:''}</div></div><span class="doc-arrow">↗</span></a>`;
-    list.appendChild(li);
-  });
-}
- 
-function mimeEmoji(m){
-  if(!m)return'📄';
-  if(m.includes('spreadsheet')||m.includes('excel'))return'📊';
-  if(m.includes('presentation')||m.includes('powerpoint'))return'📽️';
-  if(m.includes('word')||m.includes('document'))return'📝';
-  if(m.includes('pdf'))return'📄';
-  return'📄';
-}
-function mimeLabel(m){
-  if(!m)return'';
-  if(m.includes('spreadsheet')||m.includes('excel'))return'Excel ';
-  if(m.includes('presentation'))return'PowerPoint ';
-  if(m.includes('word')||m.includes('msword')||m.includes('document'))return'Word ';
-  if(m.includes('pdf'))return'PDF ';
-  return'';
-}
- 
-/* ── UPLOAD ── */
-function buildFolderSelect(){
-  const sel=document.getElementById('upload-folder-select'); sel.innerHTML='';
-  FOLDERS.filter(f=>!f.isSheet).forEach((f,i)=>{
-    const o=document.createElement('option'); o.value=i; o.textContent=f.icon+' '+f.name;
-    if(i===currentFolder) o.selected=true; sel.appendChild(o);
-  });
-}
-function openUploadModal(){
-  buildFolderSelect();
-  document.getElementById('modal-overlay').classList.add('open');
-  selectedFile=null;
-  document.getElementById('drop-text').innerHTML='📂 Κλικ ή σύρτε το αρχείο εδώ<br/><small style="color:var(--muted)">PDF, Word, Excel, PowerPoint</small>';
-  document.getElementById('drop-zone').className='drop-zone';
-  document.getElementById('upload-title').value='';
-  document.getElementById('do-upload-btn').disabled=true;
-}
-function closeUploadModal(){ document.getElementById('modal-overlay').classList.remove('open'); }
-function handleFileSelect(input){ if(input.files[0]) setFile(input.files[0]); }
-function setFile(file){
-  selectedFile=file;
-  document.getElementById('drop-text').textContent='✅ '+file.name;
-  document.getElementById('drop-zone').className='drop-zone has-file';
-  document.getElementById('do-upload-btn').disabled=false;
-}
-const dz=document.getElementById('drop-zone');
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
-dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0])setFile(e.dataTransfer.files[0]);});
- 
-async function doUpload(){
-  if(!selectedFile)return;
-  const selIdx=parseInt(document.getElementById('upload-folder-select').value);
-  const folder=FOLDERS[selIdx];
-  const title=document.getElementById('upload-title').value.trim()||selectedFile.name;
-  const btn=document.getElementById('do-upload-btn');
-  btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Ανέβασμα...';
-  try{
-    if(!accessToken) await getAccessToken();
-    await uploadToDrive(folder.id,selectedFile,title);
-    closeUploadModal();
-    showToast('✅ Το αρχείο ανέβηκε επιτυχώς!');
-    renderDocs(await fetchDriveFiles(folder.id));
-  }catch(e){
-    showToast('❌ Σφάλμα: '+e.message,true);
-  }finally{
-    btn.disabled=false; btn.innerHTML='Ανέβασμα';
-  }
-}
-function getAccessToken(){
-  return new Promise((res,rej)=>{
-    if(!tokenClient){
-      tokenClient=google.accounts.oauth2.initTokenClient({
-        client_id:CLIENT_ID,
-        scope:'https://www.googleapis.com/auth/drive.file',
-        callback:(r)=>{ if(r.error){rej(new Error(r.error));return;} accessToken=r.access_token; res(); }
+  /* ΟΔΗΓΙΕΣ: 
+     Αντικαταστήστε το "https://..." με το Link Κοινής Χρήσης του κάθε Φακέλου από το Google Drive.
+  */
+  const FOLDERS = [
+    { name: "Αιτήσεις Εγγραφής-Διαγραφής", icon: "📝", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Εκδρομές", icon: "🚌", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Εκλογικά αποτελέσματα", icon: "🗳️", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Ιατρικές Εξετάσεις", icon: "🏥", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Καταστατικό", icon: "📜", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "ΜΑΠ (Μέτρα Ατομικής Προστασίας)", icon: "📋", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Νομοθεσία", icon: "⚖️", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Ομαδικό Ασφαλιστήριο Υγείας", icon: "🩺", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Προσφορές", icon: "🎁", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "Τροποποιήσεις του Οργανισμού", icon: "🏛️", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" },
+    { name: "ΣΕΠΕΘ Εξοδολόγιο Πρότυπο", icon: "📊", link: "https://drive.google.com/drive/folders/ΤΟ_LINK_ΣΑΣ" }
+  ];
+
+  const folderGrid = document.getElementById('folderGrid');
+  const searchInput = document.getElementById('searchInput');
+
+  function renderFolders(filterText = '') {
+    folderGrid.innerHTML = '';
+    const filteredFolders = FOLDERS.filter(f => f.name.toLowerCase().includes(filterText.toLowerCase()));
+    
+    filteredFolders.forEach((f, i) => {
+      const card = document.createElement('div');
+      card.className = 'folder-card';
+      card.style.animationDelay = (i * 0.04) + 's';
+      card.innerHTML = `
+        <div class="f-icon">${f.icon}</div>
+        <div class="f-name">${f.name}</div>
+        <div class="f-action">Άνοιγμα ↗</div>
+      `;
+      card.addEventListener('click', () => {
+        window.open(f.link, '_blank');
       });
-    }
-    tokenClient.requestAccessToken({prompt:accessToken?'':'consent'});
+      folderGrid.appendChild(card);
+    });
+  }
+
+  // Λειτουργία αναζήτησης
+  searchInput.addEventListener('input', (e) => {
+    renderFolders(e.target.value);
   });
-}
-async function uploadToDrive(folderId,file,name){
-  const meta=JSON.stringify({name,parents:[folderId]});
-  const form=new FormData();
-  form.append('metadata',new Blob([meta],{type:'application/json'}));
-  form.append('file',file);
-  const r=await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{
-    method:'POST', headers:{Authorization:'Bearer '+accessToken}, body:form
-  });
-  if(!r.ok) throw new Error(await r.text());
-  return r.json();
-}
- 
-/* ── TOAST ── */
-function showToast(msg,isError=false){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.className='show'+(isError?' error':'');
-  setTimeout(()=>t.className='',3600);
-}
- 
-document.getElementById('yr').textContent=new Date().getFullYear();
-renderFolders();
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  renderFolders(); // Αρχική φόρτωση
 </script>
-<script src="https://accounts.google.com/gsi/client" async></script>
+
 </body>
 </html>
